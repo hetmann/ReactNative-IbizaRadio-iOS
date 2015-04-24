@@ -12,13 +12,12 @@ var {
 	WebView,
 	LinkingIOS,
 	AlertIOS,
+	SliderIOS,
 } = React;
 
 class Main extends React.Component{
 	player() {
-		return ('<video src="http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer_480x270_h264aac.m4v" autoplay="autoplay" controls="true" />');
-		// return ('<audio controls><source src="http://ibizaglobalradio.streaming-pro.com:8024/;stream/1" type="audio/mpeg">Your browser does not support the audio tag.</audio>'
-		// );
+		return ('<audio controls><source src="http://ibizaglobalradio.streaming-pro.com:8024/;stream/1" type="audio/mpeg">Your browser does not support the audio tag.</audio>');
 	} 
 
 	openLink(url) {
@@ -37,15 +36,18 @@ class Main extends React.Component{
 
 	constructor(props){
 		super(props);
+
 		var self = this;
+		
 		this.state = {
 			streams: "",
 			info: {
-				dj: "... __ ...",
-				program: "... __ ...",
-				time: "... __ ...",
+				dj: " ",
+				program: " ",
+				time: " ",
 				artist: "http://www.ibizaglobalradio.com/player/assets/img/back_logo.png",
-			}
+			},
+			volume: 0.5,
 		}
 		api.getStreams().then((res) => {
 			self.setState({
@@ -56,9 +58,9 @@ class Main extends React.Component{
 		api.getInfo().then((res) => {
 			self.setState({
 				info: {
-					dj: res.dj.toUpperCase() || "... __ ...",
-					program: res.name.toUpperCase() || "... __ ...",
-					time: res.time.toUpperCase() || "... __ ...",
+					dj: res.dj.toUpperCase() || " ",
+					program: res.name.toUpperCase() || " ",
+					time: res.time.toUpperCase() || " ",
 					artist: res.img || "http://www.ibizaglobalradio.com/player/assets/img/back_logo.png",
 				}
 			});
@@ -74,6 +76,18 @@ class Main extends React.Component{
 						source={{uri: this.state.info.artist}} />
 
 					<Image 
+						style={Styles.like}
+						source={require('image!like')}
+					>
+						<Text
+							style={Styles.playButton}
+							onPress={this.openLink.bind(this, "https://www.facebook.com/ibiza.radio")}
+						>
+							&nbsp;
+						</Text>
+					</Image>
+
+					<Image 
 						style={Styles.play}
 						source={require('image!play')}
 					>
@@ -84,6 +98,19 @@ class Main extends React.Component{
 							&nbsp;
 						</Text>
 					</Image>
+					
+					<Image 
+						style={Styles.share}
+						source={require('image!share')}
+					>
+						<Text
+							style={Styles.playButton}
+							onPress={this.openLink.bind(this, "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.ibizaglobalradio.com%2Fplayer%2F")}
+						>
+							&nbsp;
+						</Text>
+					</Image>
+
 
 					<View style={Styles.info}>
 						<View>
@@ -103,9 +130,19 @@ class Main extends React.Component{
 						</View>
 					</View>
 
+					<View>
+						<SliderIOS
+							style={Styles.volume}
+							value={this.state.volume}
+							onValueChange={(value) => this.setState({volume: value})} />
+						<Text style={Styles.volume_text} >
+							VOLUME: {parseInt(this.state.volume * 100)}%
+						</Text>
+					</View>
+
 					<Image 
 						style={Styles.logo}
-						source={require('image!logo')} />
+						source={require('image!logo')}/>
 				</View>
 			</ScrollView>
 		);

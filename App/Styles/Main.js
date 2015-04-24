@@ -19,14 +19,15 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    height: 200,
-    width: 200,
+    marginTop: 10,
+    height: 140,
+    width: 140,
     overflow: 'hidden',
   },
   play: {
     height: 100,
     width: 100,
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 0,
   },
   playButton: {
@@ -34,6 +35,20 @@ var styles = StyleSheet.create({
     containerBackgroundColor: 'transparent',
     textAlign: 'center',
     lineHeight: 100,
+  },
+  like: {
+    top: 220,
+    height: 70,
+    width: 70,
+    left: 20,
+    position: 'absolute',
+  },
+  share: {
+    top: 220,
+    height: 70,
+    width: 70,
+    right: 20,
+    position: 'absolute',
   },
   artist: {
     borderColor: '#ff534f',
@@ -50,12 +65,14 @@ var styles = StyleSheet.create({
     lineHeight: 19,
   },
   dj: {
+    padding: 2,
     color: '#FF5451',
     fontWeight: '300',
     fontSize: 19,
     lineHeight: 19,
   },
   time: {
+    padding: 2,
     color: '#b8b8b8',
     fontSize: 13,
     lineHeight: 13,
@@ -64,7 +81,20 @@ var styles = StyleSheet.create({
     height: 400,
     width: 400,
     backgroundColor: '#FFFFFF',
-  }
+  },
+  volume: {
+    height: 30,
+    width: 300,
+    marginTop: 5,
+    color: '#ff534f',
+    borderRadius: 10,
+  },
+  volume_text: {
+    fontSize: 9,
+    color: '#6f6f6f',
+    textAlign: 'center',
+    marginTop: 10,
+  },
 });
 
 module.exports = styles;
